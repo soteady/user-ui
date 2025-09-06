@@ -1,0 +1,68 @@
+export const aiContext = `
+# React Admin Base Project - AI Development Context
+
+## Project Overview
+This is a React TypeScript admin dashboard project using:
+- React 18 + TypeScript
+- Redux Toolkit for state management
+- Ant Design for UI components
+- Tailwind CSS for styling
+- React Router v6 for routing
+- Formik + Yup for forms
+- Axios for HTTP requests
+
+## Architecture Patterns
+- Feature-based folder structure
+- Service layer for API calls
+- Custom hooks for reusable logic
+- Higher-order components for common functionality
+- Redux for global state, local state for component-specific data
+
+## Key Components
+- BaseForm: Reusable form component with validation
+- BaseList: Reusable table/list component with search and pagination
+- MainLayout: Application layout with sidebar and header
+- FormFields: Collection of form input components
+- Authentication: Login/register modals with JWT handling
+
+## Color System (10 colors)
+1. Primary (#0ea5e9) - Main brand color
+2. Secondary (#eab308) - Secondary actions
+3. Success (#22c55e) - Success states
+4. Warning (#f59e0b) - Warning states
+5. Error (#ef4444) - Error states
+6. Info (#0ea5e9) - Information
+7. Neutral (#64748b) - Neutral content
+8. Accent (#d946ef) - Accent highlights
+9. Dark (#1e293b) - Dark theme
+10. Light (#ffffff) - Light theme
+
+## Development Rules
+- All API calls must go through services layer
+- Use TypeScript interfaces for all data structures
+- Follow the established component patterns
+- Implement proper error handling and loading states
+- Use the defined color palette consistently
+- Follow responsive design principles
+- Implement proper form validation
+- Use Redux for global state only
+
+## Common Patterns
+- Services return Promise<T> or Promise<ApiResponse<T>>
+- Components receive props with proper TypeScript interfaces
+- Forms use Formik + Yup validation schema
+- Lists use search params with filters array
+- All modals are managed through Redux state
+- Loading states are handled globally and locally
+- Error messages are shown via notification system
+
+## File Structure
+- /src/components/common - Reusable components
+- /src/pages - Page components organized by feature
+- /src/services - API service functions
+- /src/store - Redux store and slices
+- /src/utils - Utility functions and helpers
+- /src/config - Configuration files
+
+When generating code, follow these patterns and use the established architecture.
+`;`;
