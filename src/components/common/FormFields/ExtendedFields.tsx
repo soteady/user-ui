@@ -205,3 +205,4 @@ export const TextRangeField: React.FC<BaseRangeFieldProps> = ({
 
 // Export all fields
 export * from '../FormFields'; // Re-export existing fields
+export { default as FileUploadField } from './FileUploadField';

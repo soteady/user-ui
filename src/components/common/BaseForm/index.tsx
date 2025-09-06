@@ -19,7 +19,7 @@ import { showMessage } from '../../../utils/helpers/message';
 
 export interface FormFieldConfig {
   name: string;
-  type: 'text' | 'password' | 'textarea' | 'number' | 'date' | 'datetime' | 'select' | 'radio' | 'checkbox' | 'checkboxGroup';
+  type: 'text' | 'password' | 'textarea' | 'number' | 'date' | 'datetime' | 'select' | 'radio' | 'checkbox' | 'checkboxGroup' | 'custom';
   label?: string;
   placeholder?: string;
   required?: boolean;
@@ -28,6 +28,9 @@ export interface FormFieldConfig {
   validation?: Yup.Schema;
   prefix?: React.ReactNode; // for input prefix icon
   suffix?: React.ReactNode; // for input suffix icon
+  // Custom component props
+  customComponent?: React.ComponentType<any>; // for custom type
+  customProps?: Record<string, any>; // for custom type
   // Specific props for different field types
   options?: { value: any; label: string; disabled?: boolean }[]; // for select, radio, checkboxGroup
   text?: string; // for single checkbox
@@ -97,6 +100,9 @@ const BaseForm: React.FC<BaseFormProps> = ({
           case 'number':
             defaultValues[field.name] = null;
             break;
+          case 'custom':
+            defaultValues[field.name] = null;
+            break;
           default:
             defaultValues[field.name] = '';
         }
@@ -141,6 +147,10 @@ const BaseForm: React.FC<BaseFormProps> = ({
             break;
           case 'checkbox':
             schemaFields[field.name] = Yup.boolean().oneOf([true], `${field.label || field.name} là bắt buộc`);
+            break;
+          case 'custom':
+            // For custom fields, use mixed type with required validation
+            schemaFields[field.name] = Yup.mixed().required(`${field.label || field.name} là bắt buộc`);
             break;
         }
       }
@@ -264,6 +274,19 @@ const BaseForm: React.FC<BaseFormProps> = ({
             text={field.text || field.label || ''}
           />
         );
+
+      case 'custom':
+        if (field.customComponent) {
+          const CustomComponent = field.customComponent;
+          return (
+            <CustomComponent
+              key={field.name}
+              {...commonProps}
+              {...(field.customProps || {})}
+            />
+          );
+        }
+        return <TextField key={field.name} {...commonProps} />;
 
       default:
         return <TextField key={field.name} {...commonProps} />;

@@ -6,6 +6,7 @@ import {
   SettingOutlined,
   FileTextOutlined,
   TeamOutlined,
+  CloudUploadOutlined,
 } from '@ant-design/icons';
 import { MenuItem } from '../utils/types/common';
 
@@ -42,6 +43,13 @@ export const menuConfig: MenuItem[] = [
         level: 2,
       },
     ],
+  },
+  {
+    key: 'documents',
+    label: 'Quản lý tài liệu',
+    icon: React.createElement(CloudUploadOutlined),
+    path: '/documents',
+    level: 1,
   },
   {
     key: 'users',

@@ -9,6 +9,7 @@ import ProductList from './pages/products/ProductList';
 import ProductForm from './pages/products/ProductForm';
 import Dashboard from './pages/dashboard/Dashboard';
 import Login from './pages/auth/Login';
+import DocumentUpload from './pages/documents/DocumentUpload';
 import './styles/globals.css';
 
 const App: React.FC = () => {
@@ -35,6 +36,7 @@ const App: React.FC = () => {
                     <Route path="/products" element={<ProductList />} />
                     <Route path="/products/create" element={<ProductForm />} />
                     <Route path="/products/edit/:id" element={<ProductForm />} />
+                    <Route path="/documents" element={<DocumentUpload />} />
                     {/* Add more routes as needed */}
                     <Route path="*" element={<div className="text-center py-8 text-gray-500">Trang không tồn tại</div>} />
                   </Routes>
