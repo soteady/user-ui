@@ -8,6 +8,7 @@ import MainLayout from './components/common/Layout/MainLayout';
 import ProductList from './pages/products/ProductList';
 import ProductForm from './pages/products/ProductForm';
 import Dashboard from './pages/dashboard/Dashboard';
+import Login from './pages/auth/Login';
 import './styles/globals.css';
 
 const App: React.FC = () => {
@@ -23,6 +24,7 @@ const App: React.FC = () => {
       }}>
         <Router>
           <Routes>
+            <Route path="/login" element={<Login />} />
             <Route
               path="/*"
               element={

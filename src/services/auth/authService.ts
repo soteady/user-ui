@@ -8,20 +8,8 @@ interface LoginRequest {
 }
 
 interface LoginResponse {
-  token: string;
+  accessToken: string;
   refreshToken: string;
-  user: {
-    id: string;
-    username: string;
-    email: string;
-    phone?: string;
-    address?: string;
-    gender?: 'male' | 'female' | 'other';
-    birthDate?: string;
-    avatar?: string;
-    role: string;
-    permissions: string[];
-  };
 }
 
 interface RegisterRequest {
@@ -34,31 +22,10 @@ interface RegisterRequest {
   birthDate: string;
 }
 
-// TODO: Implement API calls
 export const loginUser = async (data: LoginRequest): Promise<LoginResponse> => {
   try {
-    // TODO: Uncomment when API is ready
-    // const response = await api.post('/auth/login', data);
-    // return response.data;
-
-    // Mock response for development
-    console.log('Login API called with:', data);
-
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    // Mock successful response
-    return {
-      token: 'mock-jwt-token-' + Date.now(),
-      refreshToken: 'mock-refresh-token-' + Date.now(),
-      user: {
-        id: '1',
-        username: data.username,
-        email: data.username + '@example.com',
-        role: 'Admin',
-        permissions: ['read', 'write', 'delete'],
-      },
-    };
+    const response = await api.post('/api/auth/login', data);
+    return response.data;
   } catch (error) {
     throw new Error('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
   }

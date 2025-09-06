@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Layout, Button, Popover, Avatar, Space } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   LoginOutlined,
-  UserAddOutlined,
   UserOutlined,
   LogoutOutlined,
   SettingOutlined,
@@ -11,8 +11,6 @@ import {
 } from '@ant-design/icons';
 import { RootState } from '../../../store';
 import { logout } from '../../../store/slices/authSlice';
-import LoginModal from '../Modals/LoginModal';
-import RegisterModal from '../Modals/RegisterModal';
 import MobileNav from './MobileNav';
 import { useResponsive } from '../../../utils/hooks/useResponsive';
 
@@ -20,26 +18,19 @@ const { Header: AntHeader } = Layout;
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
   const { globalConfig } = useSelector((state: RootState) => state.master);
   const { isMobile } = useResponsive();
 
-  const [loginModalVisible, setLoginModalVisible] = useState(false);
-  const [registerModalVisible, setRegisterModalVisible] = useState(false);
   const [mobileNavVisible, setMobileNavVisible] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
   };
 
-  const handleSwitchToRegister = () => {
-    setLoginModalVisible(false);
-    setRegisterModalVisible(true);
-  };
-
-  const handleSwitchToLogin = () => {
-    setRegisterModalVisible(false);
-    setLoginModalVisible(true);
+  const handleLogin = () => {
+    navigate('/login');
   };
 
   const userMenuContent = (
@@ -107,7 +98,7 @@ const Header: React.FC = () => {
             <Button
               type="primary"
               icon={<LoginOutlined />}
-              onClick={() => setLoginModalVisible(true)}
+              onClick={handleLogin}
               size="small"
               className="hidden sm:inline-flex"
             >
@@ -116,21 +107,7 @@ const Header: React.FC = () => {
             <Button
               type="primary"
               icon={<LoginOutlined />}
-              onClick={() => setLoginModalVisible(true)}
-              size="small"
-              className="sm:hidden"
-            />
-            <Button
-              icon={<UserAddOutlined />}
-              onClick={() => setRegisterModalVisible(true)}
-              size="small"
-              className="hidden sm:inline-flex"
-            >
-              Đăng ký
-            </Button>
-            <Button
-              icon={<UserAddOutlined />}
-              onClick={() => setRegisterModalVisible(true)}
+              onClick={handleLogin}
               size="small"
               className="sm:hidden"
             />
@@ -142,18 +119,6 @@ const Header: React.FC = () => {
       <MobileNav
         visible={mobileNavVisible}
         onClose={() => setMobileNavVisible(false)}
-      />
-
-      {/* Modals */}
-      <LoginModal
-        visible={loginModalVisible}
-        onCancel={() => setLoginModalVisible(false)}
-        onSwitchToRegister={handleSwitchToRegister}
-      />
-      <RegisterModal
-        visible={registerModalVisible}
-        onCancel={() => setRegisterModalVisible(false)}
-        onSwitchToLogin={handleSwitchToLogin}
       />
     </AntHeader>
   );

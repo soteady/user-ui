@@ -15,7 +15,7 @@ interface User {
 
 interface AuthState {
   isAuthenticated: boolean;
-  token: string | null;
+  accessToken: string | null;
   refreshToken: string | null;
   user: User | null;
   loginLoading: boolean;
@@ -24,7 +24,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   isAuthenticated: false,
-  token: null,
+  accessToken: null,
   refreshToken: null,
   user: null,
   loginLoading: false,
@@ -38,11 +38,10 @@ const authSlice = createSlice({
     loginStart: (state) => {
       state.loginLoading = true;
     },
-    loginSuccess: (state, action: PayloadAction<{ token: string; refreshToken: string; user: User }>) => {
+    loginSuccess: (state, action: PayloadAction<{ accessToken: string; refreshToken: string }>) => {
       state.isAuthenticated = true;
-      state.token = action.payload.token;
+      state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
-      state.user = action.payload.user;
       state.loginLoading = false;
     },
     loginFailure: (state) => {
@@ -59,7 +58,7 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.isAuthenticated = false;
-      state.token = null;
+      state.accessToken = null;
       state.refreshToken = null;
       state.user = null;
     },
@@ -68,8 +67,8 @@ const authSlice = createSlice({
         state.user = { ...state.user, ...action.payload };
       }
     },
-    setToken: (state, action: PayloadAction<{ token: string; refreshToken: string }>) => {
-      state.token = action.payload.token;
+    setToken: (state, action: PayloadAction<{ accessToken: string; refreshToken: string }>) => {
+      state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
     },
   },

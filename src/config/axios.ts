@@ -15,7 +15,7 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const state = store.getState();
-    const token = state.auth.token;
+    const token = state.auth.accessToken;
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -53,6 +53,8 @@ apiClient.interceptors.response.use(
           // Unauthorized - Clear token và redirect to login
           store.dispatch({ type: 'auth/logout' });
           showMessage.error('Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại.');
+          // Redirect to login page
+          window.location.href = '/login';
           break;
         case 403:
           showMessage.error('Bạn không có quyền truy cập tài nguyên này.');
